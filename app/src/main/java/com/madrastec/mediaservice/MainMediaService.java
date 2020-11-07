@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
-public class MediaExtract {
+public class MainMediaService {
 
     //AUDIO
     public static class AudioExtractor {
@@ -24,9 +24,8 @@ public class MediaExtract {
         public AudioExtractor(Context context, String mFolderName, String mUserSortType) {
 
             String[] mProjection = {
-                    MediaStore.Audio.AudioColumns.DISPLAY_NAME,
-                    MediaStore.Audio.AudioColumns._ID,
-                    MediaStore.Audio.AudioColumns.DATA};// Can include more data for more details and check it.
+                    MediaStore.Audio.Media._ID,
+                    MediaStore.Audio.Media.DISPLAY_NAME};// Can include more data for more details and check it.
 
             //folder name
             if ( mFolderName != null ) {
@@ -35,7 +34,7 @@ public class MediaExtract {
             }
 
             if ( mUserSortType != null)
-                mSortType = new SortUriControl().getSortUri("AUDIO", mUserSortType);
+                mSortType = new SortUriController().getSortUri("AUDIO", mUserSortType);
 
             //query
             Cursor mCursor = context.getContentResolver().query(
@@ -49,10 +48,15 @@ public class MediaExtract {
             if (mCursor != null) {
                 if (mCursor.moveToFirst()) {
                     do {
+                        //get column index
+                        int mAudioIndex = mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME);
+                        int mAudioIdIndex = mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
+                        int mAudioUriIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+
                         //retrieve data from column
-                        mAudioNameList.add(mCursor.getString(0));
-                        mAudioIdList.add(mCursor.getLong(1));
-                        mAudioUriList.add(Uri.parse(mCursor.getString(2)));
+                        mAudioNameList.add(mCursor.getString(mAudioIndex));
+                        mAudioIdList.add(mCursor.getLong(mAudioIdIndex));
+                        mAudioUriList.add(Uri.parse(mCursor.getString(mAudioUriIndex)));
                     } while (mCursor.moveToNext());
                 }
             }
@@ -90,9 +94,9 @@ public class MediaExtract {
         public VideoExtractor(Context mContext, String mFolderName, String mUserSortType) {
 
             String[] mProjection = {
-                    MediaStore.Video.VideoColumns.TITLE,
-                    MediaStore.Video.VideoColumns._ID,
-                    MediaStore.Video.VideoColumns.DATA};
+                    MediaStore.Video.Media.TITLE,
+                    MediaStore.Video.Media._ID,
+                    MediaStore.Video.Media.DATA};
 
             //folder name
             if ( mFolderName != null ) {
@@ -101,7 +105,7 @@ public class MediaExtract {
             }
 
             if ( mUserSortType != null)
-                mSortType = new SortUriControl().getSortUri("VIDEO", mUserSortType);
+                mSortType = new SortUriController().getSortUri("VIDEO", mUserSortType);
 
             //query
             Cursor mCursor = mContext.getContentResolver().query(
@@ -115,12 +119,17 @@ public class MediaExtract {
             if (mCursor != null) {
                 if (mCursor.moveToFirst()) {
                     do {
+                        //get column index
+                        int mVideoIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE);
+                        int mVideoIdIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID);
+                        int mVideoUriIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+
                         //retrieve data from column
-                        mVideoNameList.add(mCursor.getString(0));
-                        mVideoIdList.add(mCursor.getLong(1));
-                        mVideoUriList.add(Uri.parse(mCursor.getString(2)));
+                        mVideoNameList.add(mCursor.getString(mVideoIndex));
+                        mVideoIdList.add(mCursor.getLong(mVideoIdIndex));
+                        mVideoUriList.add(Uri.parse(mCursor.getString(mVideoUriIndex)));
                         mVideoBitmapList.add(ThumbnailUtils.createVideoThumbnail(
-                                mCursor.getString(2),
+                                mCursor.getString(mVideoUriIndex),
                                 MediaStore.Video.Thumbnails.MICRO_KIND));
                     } while (mCursor.moveToNext());
                 }
@@ -159,9 +168,9 @@ public class MediaExtract {
         public ImageExtractor(Context mContext, String mFolderName, String mUserSortType) {
 
             String[] mProjection = {
-                    MediaStore.Images.ImageColumns.TITLE,
-                    MediaStore.Images.ImageColumns._ID,
-                    MediaStore.Images.ImageColumns.DATA};
+                    MediaStore.Images.Media.TITLE,
+                    MediaStore.Images.Media._ID,
+                    MediaStore.Images.Media.DATA};
 
             //folder name
             if ( mFolderName != null ) {
@@ -170,7 +179,7 @@ public class MediaExtract {
             }
 
             if ( mUserSortType != null )
-                mSortType = new SortUriControl().getSortUri("IMAGE", mUserSortType);
+                mSortType = new SortUriController().getSortUri("IMAGE", mUserSortType);
 
             //query
             Cursor mCursor = mContext.getContentResolver().query(
@@ -184,12 +193,17 @@ public class MediaExtract {
             if (mCursor != null) {
                 if (mCursor.moveToFirst()) {
                     do {
+                        //get column index
+                        int mImageIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE);
+                        int mImageIdIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
+                        int mImageUriIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
                         //retrieve data from column
-                        mImageNameList.add(mCursor.getString(0));
-                        mImageIdList.add(mCursor.getLong(1));
-                        mImageUriList.add(Uri.parse(mCursor.getString(2)));
+                        mImageNameList.add(mCursor.getString(mImageIndex));
+                        mImageIdList.add(mCursor.getLong(mImageIdIndex));
+                        mImageUriList.add(Uri.parse(mCursor.getString(mImageUriIndex)));
                         mImageBitmapList.add(ThumbnailUtils.createVideoThumbnail(
-                                mCursor.getString(2),
+                                mCursor.getString(mImageUriIndex),
                                 MediaStore.Images.Thumbnails.MICRO_KIND));
                     } while (mCursor.moveToNext());
                 }
