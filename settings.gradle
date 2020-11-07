@@ -1,0 +1,3 @@
+include ':MediaService'
+include ':app'
+rootProject.name = "MediaExtract"
