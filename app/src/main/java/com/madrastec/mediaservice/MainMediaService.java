@@ -1,231 +1,103 @@
 package com.madrastec.mediaservice;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
-import android.provider.MediaStore;
-
+import android.graphics.BitmapFactory;
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainMediaService {
 
-    //AUDIO
-    public static class AudioExtractor {
+    public static class Audio {
 
-        String[] mSelectionArgs = null;
-        String mSelection = null;
-        String mSortType = MediaStore.Audio.Media.TITLE;
-        ArrayList<String> mAudioNameList = new ArrayList<>();
-        ArrayList<Long> mAudioIdList = new ArrayList<>();
-        ArrayList<Uri> mAudioUriList = new ArrayList<>();
+        ArrayList<String> audioList;
+        ArrayList<String> audioPath;
+        File[] mFiles;
 
-        public AudioExtractor(Context context, String mFolderName, String mUserSortType) {
+        Audio (String mFolder)
+        {
+            mFiles = FileRetriever.fileRetriever("AUDIO", mFolder);
+        }
 
-            String[] mProjection = {
-                    MediaStore.Audio.Media._ID,
-                    MediaStore.Audio.Media.DISPLAY_NAME};// Can include more data for more details and check it.
-
-            //folder name
-            if ( mFolderName != null ) {
-                mSelection = MediaStore.Audio.Media.DATA+" like?";
-                mSelectionArgs = new String[]{"%"+mFolderName+"%"};
+        public ArrayList<String> getAudioList()
+        {
+            for (File file : mFiles) {
+                audioList.add(file.getName());
             }
+            return  audioList;
+        }
 
-            if ( mUserSortType != null)
-                mSortType = new SortUriController().getSortUri("AUDIO", mUserSortType);
-
-            //query
-            Cursor mCursor = context.getContentResolver().query(
-                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    mProjection,
-                    mSelection,
-                    mSelectionArgs,
-                    mSortType);
-
-            //retriving data from cursor
-            if (mCursor != null) {
-                if (mCursor.moveToFirst()) {
-                    do {
-                        //get column index
-                        int mAudioIndex = mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME);
-                        int mAudioIdIndex = mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
-                        int mAudioUriIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-
-                        //retrieve data from column
-                        mAudioNameList.add(mCursor.getString(mAudioIndex));
-                        mAudioIdList.add(mCursor.getLong(mAudioIdIndex));
-                        mAudioUriList.add(Uri.parse(mCursor.getString(mAudioUriIndex)));
-                    } while (mCursor.moveToNext());
-                }
+        public ArrayList<String> getAudioPath()
+        {
+            for (File file : mFiles) {
+                audioPath.add(file.getPath());
             }
-            assert mCursor != null;
-            mCursor.close();
-        }
-
-        //returns audio name
-        public ArrayList<String> getAudioNameList() {
-            return mAudioNameList;
-        }
-
-        //returns audio id
-        public ArrayList<Long> getAudioIdList() {
-            return mAudioIdList;
-        }
-
-        //return audio uri path
-        public ArrayList<Uri> getAudioUriList() {
-            return mAudioUriList;
+            return  audioPath;
         }
     }
 
-    //VIDEO
-    public static class VideoExtractor {
+    public static class Video {
 
-        String[] mSelectionArgs = null;
-        String mSelection = null;
-        String mSortType = MediaStore.Video.Media.TITLE;
-        ArrayList<String> mVideoNameList = new ArrayList<>();
-        ArrayList<Long> mVideoIdList = new ArrayList<>();
-        ArrayList<Uri> mVideoUriList = new ArrayList<>();
-        ArrayList<Bitmap> mVideoBitmapList = new ArrayList<>();
+        ArrayList<String> videoList;
+        ArrayList<String> videoPath;
+        File[] mFiles;
 
-        public VideoExtractor(Context mContext, String mFolderName, String mUserSortType) {
+        Video (String mFolder)
+        {
+            mFiles = FileRetriever.fileRetriever("VIDEO", mFolder);
+        }
 
-            String[] mProjection = {
-                    MediaStore.Video.Media.TITLE,
-                    MediaStore.Video.Media._ID,
-                    MediaStore.Video.Media.DATA};
-
-            //folder name
-            if ( mFolderName != null ) {
-                mSelection = MediaStore.Video.Media.DATA+" like?";
-                mSelectionArgs = new String[]{"%"+mFolderName+"%"};
+        public ArrayList<String> getVideoList()
+        {
+            for (File file : mFiles) {
+                videoList.add(file.getName());
             }
+            return  videoList;
+        }
 
-            if ( mUserSortType != null)
-                mSortType = new SortUriController().getSortUri("VIDEO", mUserSortType);
-
-            //query
-            Cursor mCursor = mContext.getContentResolver().query(
-                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                    mProjection,
-                    mSelection,
-                    mSelectionArgs,
-                    mSortType);
-
-            //retriving data from cursor
-            if (mCursor != null) {
-                if (mCursor.moveToFirst()) {
-                    do {
-                        //get column index
-                        int mVideoIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE);
-                        int mVideoIdIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID);
-                        int mVideoUriIndex = mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-
-                        //retrieve data from column
-                        mVideoNameList.add(mCursor.getString(mVideoIndex));
-                        mVideoIdList.add(mCursor.getLong(mVideoIdIndex));
-                        mVideoUriList.add(Uri.parse(mCursor.getString(mVideoUriIndex)));
-                        mVideoBitmapList.add(ThumbnailUtils.createVideoThumbnail(
-                                mCursor.getString(mVideoUriIndex),
-                                MediaStore.Video.Thumbnails.MICRO_KIND));
-                    } while (mCursor.moveToNext());
-                }
+        public ArrayList<String> getVideoPath()
+        {
+            for (File file : mFiles) {
+                videoPath.add(file.getPath());
             }
-            assert mCursor != null;
-            mCursor.close();
+            return  videoPath;
         }
-
-        //returns video name
-        public ArrayList<String> getVideoNameList() {
-            return mVideoNameList;
-        }
-
-        //returns video id
-        public ArrayList<Long> getVideoIdList() {
-            return mVideoIdList;
-        }
-
-        //returns video path
-        public ArrayList<Uri> getVideoUriList() {
-            return mVideoUriList;
-        }
-
     }
 
-    public static class ImageExtractor {
+    public static class Image {
 
-        String[] mSelectionArgs = null;
-        String mSelection = null;
-        String mSortType = MediaStore.Images.Media.TITLE;
-        ArrayList<String> mImageNameList = new ArrayList<>();
-        ArrayList<Long> mImageIdList = new ArrayList<>();
-        ArrayList<Uri> mImageUriList = new ArrayList<>();
-        ArrayList<Bitmap> mImageBitmapList = new ArrayList<>();
+        ArrayList<String> imageList = new ArrayList<>();
+        ArrayList<String> imagePath = new ArrayList<>();;
+        ArrayList<Bitmap> imageBitmap = new ArrayList<>();;
+        String fileName = "";
+        File[] mFiles;
 
-        public ImageExtractor(Context mContext, String mFolderName, String mUserSortType) {
+        Image (String mFolder)
+        {
+            mFiles = FileRetriever.fileRetriever("IMAGE", mFolder);
+        }
 
-            String[] mProjection = {
-                    MediaStore.Images.Media.TITLE,
-                    MediaStore.Images.Media._ID,
-                    MediaStore.Images.Media.DATA};
-
-            //folder name
-            if ( mFolderName != null ) {
-                mSelection = MediaStore.Images.Media.DATA+" like?";
-                mSelectionArgs = new String[]{"%"+mFolderName+"%"};
+        public ArrayList<String> getImageList()
+        {
+            for (File file : mFiles) {
+                imageList.add(file.getName());
             }
+            return  imageList;
+        }
 
-            if ( mUserSortType != null )
-                mSortType = new SortUriController().getSortUri("IMAGE", mUserSortType);
-
-            //query
-            Cursor mCursor = mContext.getContentResolver().query(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    mProjection,
-                    mSelection,
-                    mSelectionArgs,
-                    mSortType);
-
-            //retriving data from cursor
-            if (mCursor != null) {
-                if (mCursor.moveToFirst()) {
-                    do {
-                        //get column index
-                        int mImageIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE);
-                        int mImageIdIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
-                        int mImageUriIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-                        //retrieve data from column
-                        mImageNameList.add(mCursor.getString(mImageIndex));
-                        mImageIdList.add(mCursor.getLong(mImageIdIndex));
-                        mImageUriList.add(Uri.parse(mCursor.getString(mImageUriIndex)));
-                        mImageBitmapList.add(ThumbnailUtils.createVideoThumbnail(
-                                mCursor.getString(mImageUriIndex),
-                                MediaStore.Images.Thumbnails.MICRO_KIND));
-                    } while (mCursor.moveToNext());
-                }
+        public ArrayList<String> getImagePath()
+        {
+            for (File file : mFiles) {
+                imagePath.add(file.getPath());
             }
-            assert mCursor != null;
-            mCursor.close();
+            return  imagePath;
         }
 
-        //returns video name
-        public ArrayList<String> getImageNameList() {
-            return mImageNameList;
+        public ArrayList<Bitmap> getImageBitmap()
+        {
+            for (File file : mFiles) {
+                imageBitmap.add(BitmapFactory.decodeFile(file.getPath()));
+            }
+            return  imageBitmap;
         }
-
-        //returns video id
-        public ArrayList<Long> getImageIdList() {
-            return mImageIdList;
-        }
-
-        //returns video path
-        public ArrayList<Uri> getImageUriList() {
-            return mImageUriList;
-        }
-
     }
 }
