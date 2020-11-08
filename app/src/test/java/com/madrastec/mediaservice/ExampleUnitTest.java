@@ -1,4 +1,4 @@
-package com.madrastec.mediaextract;
+package com.madrastec.mediaservice;
 
 import org.junit.Test;
 
