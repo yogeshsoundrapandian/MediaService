@@ -13,9 +13,11 @@ public class MediaService {
         ArrayList<String> audioPath;
         File[] mFiles;
 
-        public Audio (String mFolder)
-        {
-            mFiles = FileRetriever.fileRetriever("AUDIO", mFolder);
+        String[] extension = new String[]{".mp3",".aac",".wav"};
+
+        Audio (String mFolder) {
+            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+
             for (File file : mFiles) {
                 audioList.add(file.getName());
                 audioPath.add(file.getPath());
@@ -39,9 +41,11 @@ public class MediaService {
         ArrayList<String> videoPath;
         File[] mFiles;
 
-        public Video (String mFolder)
-        {
-            mFiles = FileRetriever.fileRetriever("VIDEO", mFolder);
+        String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
+
+        Video (String mFolder) {
+            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+
             for (File file : mFiles) {
                 videoList.add(file.getName());
                 videoPath.add(file.getPath());
@@ -67,9 +71,12 @@ public class MediaService {
         String fileName = "";
         File[] mFiles;
 
+        String[] extension = new String[]{".jpg",".jpeg",".png"};
+
         public Image (String mFolder)
         {
-            mFiles = FileRetriever.fileRetriever("IMAGE", mFolder);
+            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+
             for (File file : mFiles) {
                 imageList.add(file.getName());
                 imagePath.add(file.getPath());

@@ -13,24 +13,24 @@ public class MainMediaService {
         ArrayList<String> audioPath;
         File[] mFiles;
 
-        public Audio (String mFolder)
-        {
-            mFiles = FileRetriever.fileRetriever("AUDIO", mFolder);
+        String[] extension = new String[]{".mp3",".aac",".wav"};
+
+        Audio (String mFolder) {
+            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+
+            for (File file : mFiles) {
+                audioList.add(file.getName());
+                audioPath.add(file.getPath());
+            }
         }
 
         public ArrayList<String> getAudioList()
         {
-            for (File file : mFiles) {
-                audioList.add(file.getName());
-            }
             return  audioList;
         }
 
         public ArrayList<String> getAudioPath()
         {
-            for (File file : mFiles) {
-                audioPath.add(file.getPath());
-            }
             return  audioPath;
         }
     }
@@ -41,24 +41,24 @@ public class MainMediaService {
         ArrayList<String> videoPath;
         File[] mFiles;
 
-        public Video (String mFolder)
-        {
-            mFiles = FileRetriever.fileRetriever("VIDEO", mFolder);
+        String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
+
+        Video (String mFolder) {
+            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+
+            for (File file : mFiles) {
+                videoList.add(file.getName());
+                videoPath.add(file.getPath());
+            }
         }
 
         public ArrayList<String> getVideoList()
         {
-            for (File file : mFiles) {
-                videoList.add(file.getName());
-            }
             return  videoList;
         }
 
         public ArrayList<String> getVideoPath()
         {
-            for (File file : mFiles) {
-                videoPath.add(file.getPath());
-            }
             return  videoPath;
         }
     }
@@ -71,32 +71,31 @@ public class MainMediaService {
         String fileName = "";
         File[] mFiles;
 
+        String[] extension = new String[]{".jpg",".jpeg",".png"};
+
         public Image (String mFolder)
         {
-            mFiles = FileRetriever.fileRetriever("IMAGE", mFolder);
+            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+
+            for (File file : mFiles) {
+                imageList.add(file.getName());
+                imagePath.add(file.getPath());
+                imageBitmap.add(BitmapFactory.decodeFile(file.getPath()));
+            }
         }
 
         public ArrayList<String> getImageList()
         {
-            for (File file : mFiles) {
-                imageList.add(file.getName());
-            }
             return  imageList;
         }
 
         public ArrayList<String> getImagePath()
         {
-            for (File file : mFiles) {
-                imagePath.add(file.getPath());
-            }
             return  imagePath;
         }
 
         public ArrayList<Bitmap> getImageBitmap()
         {
-            for (File file : mFiles) {
-                imageBitmap.add(BitmapFactory.decodeFile(file.getPath()));
-            }
             return  imageBitmap;
         }
     }
