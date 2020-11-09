@@ -23,18 +23,15 @@ public class MediaService {
             fileRetriever = new FileRetriever(mFolder, extension);
         }
 
-        public ArrayList<String> getAudioList()
-        {
+        public ArrayList<String> getAudioList() {
             return  fileRetriever.getFileList();
         }
 
-        public ArrayList<String> getAudioPath()
-        {
+        public ArrayList<String> getAudioPath() {
             return  fileRetriever.getFilePath();
         }
 
-        public ArrayList<Bitmap> getAudioBitmap()
-        {
+        public ArrayList<Bitmap> getAudioBitmap() {
             return  fileRetriever.getFileBitmap();
         }
     }
@@ -49,18 +46,15 @@ public class MediaService {
             fileRetriever = new FileRetriever(mFolder, extension);
         }
 
-        public ArrayList<String> getVideoList()
-        {
+        public ArrayList<String> getVideoList() {
             return  fileRetriever.getFileList();
         }
 
-        public ArrayList<String> getVideoPath()
-        {
+        public ArrayList<String> getVideoPath() {
             return  fileRetriever.getFilePath();
         }
 
-        public ArrayList<Bitmap> getVideoBitmap()
-        {
+        public ArrayList<Bitmap> getVideoBitmap() {
             return  fileRetriever.getFileBitmap();
         }
     }
@@ -71,24 +65,20 @@ public class MediaService {
 
         FileRetriever fileRetriever;
 
-        public Image (String mFolder)
-        {
+        public Image (String mFolder) {
             fileRetriever = new FileRetriever(mFolder, extension);
 
         }
 
-        public ArrayList<String> getImageList()
-        {
+        public ArrayList<String> getImageList() {
             return  fileRetriever.getFileList();
         }
 
-        public ArrayList<String> getImagePath()
-        {
+        public ArrayList<String> getImagePath() {
             return  fileRetriever.getFilePath();
         }
 
-        public ArrayList<Bitmap> getImageBitmap()
-        {
+        public ArrayList<Bitmap> getImageBitmap() {
             return  fileRetriever.getFileBitmap();
         }
     }
@@ -132,18 +122,15 @@ public class MediaService {
             }
         }
 
-        public ArrayList<String> getFileList()
-        {
+        public ArrayList<String> getFileList() {
             return  fileList;
         }
 
-        public ArrayList<String> getFilePath()
-        {
+        public ArrayList<String> getFilePath() {
             return  filePath;
         }
 
-        public ArrayList<Bitmap> getFileBitmap()
-        {
+        public ArrayList<Bitmap> getFileBitmap() {
             return  fileBitmap;
         }
     }
