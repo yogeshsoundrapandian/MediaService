@@ -32,6 +32,11 @@ public class MediaService {
         {
             return  fileRetriever.getFilePath();
         }
+
+        public ArrayList<Bitmap> getAudioBitmap()
+        {
+            return  fileRetriever.getFileBitmap();
+        }
     }
 
     public static class Video {
