@@ -13,7 +13,7 @@ public class MainMediaService {
         ArrayList<String> audioPath;
         File[] mFiles;
 
-        Audio (String mFolder)
+        public Audio (String mFolder)
         {
             mFiles = FileRetriever.fileRetriever("AUDIO", mFolder);
         }
@@ -41,7 +41,7 @@ public class MainMediaService {
         ArrayList<String> videoPath;
         File[] mFiles;
 
-        Video (String mFolder)
+        public Video (String mFolder)
         {
             mFiles = FileRetriever.fileRetriever("VIDEO", mFolder);
         }
@@ -71,7 +71,7 @@ public class MainMediaService {
         String fileName = "";
         File[] mFiles;
 
-        Image (String mFolder)
+        public Image (String mFolder)
         {
             mFiles = FileRetriever.fileRetriever("IMAGE", mFolder);
         }
