@@ -50,6 +50,11 @@ public class MediaService {
         {
             return  fileRetriever.getFilePath();
         }
+
+        public ArrayList<Bitmap> getVideoBitmap()
+        {
+            return  fileRetriever.getFileBitmap();
+        }
     }
 
     public static class Image {
