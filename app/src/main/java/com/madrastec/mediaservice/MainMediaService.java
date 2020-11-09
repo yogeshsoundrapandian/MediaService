@@ -2,11 +2,14 @@ package com.madrastec.mediaservice;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Environment;
+import android.provider.MediaStore;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainMediaService {
 
@@ -20,14 +23,16 @@ public class MainMediaService {
             fileRetriever = new FileRetriever(mFolder, extension);
         }
 
-        public ArrayList<String> getAudioList()
-        {
+        public ArrayList<String> getAudioList() {
             return  fileRetriever.getFileList();
         }
 
-        public ArrayList<String> getAudioPath()
-        {
+        public ArrayList<String> getAudioPath() {
             return  fileRetriever.getFilePath();
+        }
+
+        public ArrayList<Bitmap> getAudioBitmap() {
+            return  fileRetriever.getFileBitmap();
         }
     }
 
@@ -41,14 +46,16 @@ public class MainMediaService {
             fileRetriever = new FileRetriever(mFolder, extension);
         }
 
-        public ArrayList<String> getVideoList()
-        {
+        public ArrayList<String> getVideoList() {
             return  fileRetriever.getFileList();
         }
 
-        public ArrayList<String> getVideoPath()
-        {
+        public ArrayList<String> getVideoPath() {
             return  fileRetriever.getFilePath();
+        }
+
+        public ArrayList<Bitmap> getVideoBitmap() {
+            return  fileRetriever.getFileBitmap();
         }
     }
 
@@ -58,24 +65,20 @@ public class MainMediaService {
 
         FileRetriever fileRetriever;
 
-        public Image (String mFolder)
-        {
+        public Image (String mFolder) {
             fileRetriever = new FileRetriever(mFolder, extension);
 
         }
 
-        public ArrayList<String> getImageList()
-        {
+        public ArrayList<String> getImageList() {
             return  fileRetriever.getFileList();
         }
 
-        public ArrayList<String> getImagePath()
-        {
+        public ArrayList<String> getImagePath() {
             return  fileRetriever.getFilePath();
         }
 
-        public ArrayList<Bitmap> getImageBitmap()
-        {
+        public ArrayList<Bitmap> getImageBitmap() {
             return  fileRetriever.getFileBitmap();
         }
     }
@@ -89,6 +92,8 @@ public class MainMediaService {
         File[] files;
 
         public FileRetriever(String mFolder, final String[] extension){
+
+            ArrayList<String> extensionList = new ArrayList<String>(Arrays.asList(extension));
 
             File folder = new File(Environment.getExternalStorageDirectory() + File.separator + mFolder);
 
@@ -109,22 +114,23 @@ public class MainMediaService {
             for (File file : files) {
                 fileList.add(file.getName());
                 filePath.add(file.getPath());
-                fileBitmap.add(BitmapFactory.decodeFile(file.getPath()));
+                if ( extensionList.contains(".mp4") || extensionList.contains(".mpeg4") ||
+                        extensionList.contains(".mp3") || extensionList.contains(".aac") )
+                    fileBitmap.add(ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND));
+                else
+                    fileBitmap.add(BitmapFactory.decodeFile(file.getPath()));
             }
         }
 
-        public ArrayList<String> getFileList()
-        {
+        public ArrayList<String> getFileList() {
             return  fileList;
         }
 
-        public ArrayList<String> getFilePath()
-        {
+        public ArrayList<String> getFilePath() {
             return  filePath;
         }
 
-        public ArrayList<Bitmap> getFileBitmap()
-        {
+        public ArrayList<Bitmap> getFileBitmap() {
             return  fileBitmap;
         }
     }
