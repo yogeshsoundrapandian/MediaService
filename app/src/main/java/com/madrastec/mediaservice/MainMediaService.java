@@ -52,13 +52,11 @@ public class MainMediaService {
             }
         }
 
-        public ArrayList<String> getVideoList()
-        {
+        public ArrayList<String> getVideoList() {
             return  videoList;
         }
 
-        public ArrayList<String> getVideoPath()
-        {
+        public ArrayList<String> getVideoPath() {
             return  videoPath;
         }
     }
@@ -73,8 +71,7 @@ public class MainMediaService {
 
         String[] extension = new String[]{".jpg",".jpeg",".png"};
 
-        public Image (String mFolder)
-        {
+        public Image (String mFolder) {
             mFiles = FileRetriever.fileRetriever(mFolder, extension);
 
             for (File file : mFiles) {
@@ -84,18 +81,15 @@ public class MainMediaService {
             }
         }
 
-        public ArrayList<String> getImageList()
-        {
+        public ArrayList<String> getImageList() {
             return  imageList;
         }
 
-        public ArrayList<String> getImagePath()
-        {
+        public ArrayList<String> getImagePath() {
             return  imagePath;
         }
 
-        public ArrayList<Bitmap> getImageBitmap()
-        {
+        public ArrayList<Bitmap> getImageBitmap() {
             return  imageBitmap;
         }
     }
