@@ -2,11 +2,14 @@ package com.madrastec.mediaservice;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Environment;
+import android.provider.MediaStore;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MediaService {
 
@@ -95,6 +98,8 @@ public class MediaService {
 
         public FileRetriever(String mFolder, final String[] extension){
 
+            ArrayList<String> extensionList = new ArrayList<String>(Arrays.asList(extension));
+
             File folder = new File(Environment.getExternalStorageDirectory() + File.separator + mFolder);
 
             if (folder.exists()) {
@@ -114,7 +119,11 @@ public class MediaService {
             for (File file : files) {
                 fileList.add(file.getName());
                 filePath.add(file.getPath());
-                fileBitmap.add(BitmapFactory.decodeFile(file.getPath()));
+                if ( extensionList.contains(".mp4") || extensionList.contains(".mpeg4") ||
+                        extensionList.contains(".mp3") || extensionList.contains(".aac") )
+                    fileBitmap.add(ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND));
+                else
+                    fileBitmap.add(BitmapFactory.decodeFile(file.getPath()));
             }
         }
 
