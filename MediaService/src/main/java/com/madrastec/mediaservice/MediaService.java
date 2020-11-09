@@ -12,102 +12,84 @@ public class MediaService {
 
     public static class Audio {
 
-        ArrayList<String> audioList;
-        ArrayList<String> audioPath;
-        File[] mFiles;
-
         String[] extension = new String[]{".mp3",".aac",".wav"};
 
-        Audio (String mFolder) {
-            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+        FileRetriever fileRetriever;
 
-            for (File file : mFiles) {
-                audioList.add(file.getName());
-                audioPath.add(file.getPath());
-            }
+        Audio (String mFolder) {
+            fileRetriever = new FileRetriever(mFolder, extension);
         }
 
         public ArrayList<String> getAudioList()
         {
-            return  audioList;
+            return  fileRetriever.getFileList();
         }
 
         public ArrayList<String> getAudioPath()
         {
-            return  audioPath;
+            return  fileRetriever.getFilePath();
         }
     }
 
     public static class Video {
 
-        ArrayList<String> videoList;
-        ArrayList<String> videoPath;
-        File[] mFiles;
-
         String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
 
-        Video (String mFolder) {
-            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+        FileRetriever fileRetriever;
 
-            for (File file : mFiles) {
-                videoList.add(file.getName());
-                videoPath.add(file.getPath());
-            }
+        Video (String mFolder) {
+            fileRetriever = new FileRetriever(mFolder, extension);
         }
 
         public ArrayList<String> getVideoList()
         {
-            return  videoList;
+            return  fileRetriever.getFileList();
         }
 
         public ArrayList<String> getVideoPath()
         {
-            return  videoPath;
+            return  fileRetriever.getFilePath();
         }
     }
 
     public static class Image {
 
-        ArrayList<String> imageList = new ArrayList<>();
-        ArrayList<String> imagePath = new ArrayList<>();;
-        ArrayList<Bitmap> imageBitmap = new ArrayList<>();;
-        String fileName = "";
-        File[] mFiles;
-
         String[] extension = new String[]{".jpg",".jpeg",".png"};
+
+        FileRetriever fileRetriever;
 
         public Image (String mFolder)
         {
-            mFiles = FileRetriever.fileRetriever(mFolder, extension);
+            fileRetriever = new FileRetriever(mFolder, extension);
 
-            for (File file : mFiles) {
-                imageList.add(file.getName());
-                imagePath.add(file.getPath());
-                imageBitmap.add(BitmapFactory.decodeFile(file.getPath()));
-            }
         }
 
         public ArrayList<String> getImageList()
         {
-            return  imageList;
+            return  fileRetriever.getFileList();
         }
 
         public ArrayList<String> getImagePath()
         {
-            return  imagePath;
+            return  fileRetriever.getFilePath();
         }
 
         public ArrayList<Bitmap> getImageBitmap()
         {
-            return  imageBitmap;
+            return  fileRetriever.getFileBitmap();
         }
     }
 
     public static class FileRetriever {
 
-        public static File[] fileRetriever(String mFolder, final String[] extension){
+        ArrayList<String> fileList = new ArrayList<>();
+        ArrayList<String> filePath = new ArrayList<>();;
+        ArrayList<Bitmap> fileBitmap = new ArrayList<>();
 
-            File[] files = null;
+        File[] files;
+
+        public FileRetriever(String mFolder, final String[] extension){
+
             File folder = new File(Environment.getExternalStorageDirectory() + File.separator + mFolder);
 
             if (folder.exists()) {
@@ -123,7 +105,27 @@ public class MediaService {
                 });
             }
 
-            return files;
+            assert files != null;
+            for (File file : files) {
+                fileList.add(file.getName());
+                filePath.add(file.getPath());
+                fileBitmap.add(BitmapFactory.decodeFile(file.getPath()));
+            }
+        }
+
+        public ArrayList<String> getFileList()
+        {
+            return  fileList;
+        }
+
+        public ArrayList<String> getFilePath()
+        {
+            return  filePath;
+        }
+
+        public ArrayList<Bitmap> getFileBitmap()
+        {
+            return  fileBitmap;
         }
     }
 }
