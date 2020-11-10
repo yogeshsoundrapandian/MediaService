@@ -29,7 +29,6 @@ public class FileRetriever {
             files = folder.listFiles(new FilenameFilter() {
                 public boolean accept(File dir, String name) {
                     for (String s : fileExtensions) {
-
                         if (name.endsWith(s))
                             return true;
                     }
