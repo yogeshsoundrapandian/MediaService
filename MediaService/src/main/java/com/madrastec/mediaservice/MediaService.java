@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class MediaService {
 
+    //AUDIO
     public static class Audio {
 
         String[] extension = new String[]{".mp3",".aac",".wav"};
@@ -29,6 +30,7 @@ public class MediaService {
         }
     }
 
+    //VIDEO
     public static class Video {
 
         String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
@@ -52,6 +54,7 @@ public class MediaService {
         }
     }
 
+    //IMAGE
     public static class Image {
 
         String[] extension = new String[]{".jpg",".jpeg",".png"};
@@ -60,7 +63,6 @@ public class MediaService {
 
         public Image (String mFolder) {
             fileRetriever = new FileRetriever(mFolder, extension);
-
         }
 
         public ArrayList<String> getImageList() {
