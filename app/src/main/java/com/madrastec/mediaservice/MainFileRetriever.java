@@ -13,11 +13,11 @@ import java.util.Arrays;
 
 public class MainFileRetriever {
 
-    ArrayList<String> fileList = new ArrayList<>();
-    ArrayList<String> filePath = new ArrayList<>();;
-    ArrayList<Bitmap> fileBitmap = new ArrayList<>();
+    private ArrayList<String> fileList = new ArrayList<>();
+    private ArrayList<String> filePath = new ArrayList<>();;
+    private ArrayList<Bitmap> fileBitmap = new ArrayList<>();
 
-    File[] files;
+    private File[] files;
 
     public MainFileRetriever(String mFolder, final String[] extension){
 

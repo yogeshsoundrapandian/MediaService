@@ -13,22 +13,22 @@ import java.util.Arrays;
 
 public class FileRetriever {
 
-    ArrayList<String> fileList = new ArrayList<>();
-    ArrayList<String> filePath = new ArrayList<>();;
-    ArrayList<Bitmap> fileBitmap = new ArrayList<>();
+    private ArrayList<String> fileList = new ArrayList<>();
+    private ArrayList<String> filePath = new ArrayList<>();;
+    private ArrayList<Bitmap> fileBitmap = new ArrayList<>();
 
-    File[] files;
+    private File[] files;
 
-    public FileRetriever(String mFolder, final String[] extension){
+    public FileRetriever(String folderPath, final String[] fileExtensions){
 
-        ArrayList<String> extensionList = new ArrayList<String>(Arrays.asList(extension));
+        ArrayList<String> extensionList = new ArrayList<String>(Arrays.asList(fileExtensions));
 
-        File folder = new File(Environment.getExternalStorageDirectory() + File.separator + mFolder);
+        File folder = new File(Environment.getExternalStorageDirectory() + File.separator + folderPath);
 
         if (folder.exists()) {
             files = folder.listFiles(new FilenameFilter() {
                 public boolean accept(File dir, String name) {
-                    for (String s : extension) {
+                    for (String s : fileExtensions) {
 
                         if (name.endsWith(s))
                             return true;
