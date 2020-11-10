@@ -11,9 +11,9 @@ public class MediaService {
 
         FileRetriever fileRetriever;
 
-        Audio (String mFolder) {
+        Audio (String folderPath) {
             String[] extension = new String[]{".mp3",".aac",".wav"};
-            fileRetriever = new FileRetriever(mFolder, extension);
+            fileRetriever = new FileRetriever(folderPath, extension);
         }
 
         public ArrayList<String> getAudioList() {
@@ -34,9 +34,9 @@ public class MediaService {
 
         FileRetriever fileRetriever;
 
-        Video (String mFolder) {
+        Video (String folderPath) {
             String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
-            fileRetriever = new FileRetriever(mFolder, extension);
+            fileRetriever = new FileRetriever(folderPath, extension);
         }
 
         public ArrayList<String> getVideoList() {
@@ -57,9 +57,9 @@ public class MediaService {
 
         FileRetriever fileRetriever;
 
-        public Image (String mFolder) {
+        public Image (String folderPath) {
             String[] extension = new String[]{".jpg",".jpeg",".png"};
-            fileRetriever = new FileRetriever(mFolder, extension);
+            fileRetriever = new FileRetriever(folderPath, extension);
         }
 
         public ArrayList<String> getImageList() {
