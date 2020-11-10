@@ -10,10 +10,10 @@ public class MainMediaService {
 
         String[] extension = new String[]{".mp3",".aac",".wav"};
 
-        FileRetriever fileRetriever;
+        MainFileRetriever fileRetriever;
 
         Audio (String mFolder) {
-            fileRetriever = new FileRetriever(mFolder, extension);
+            fileRetriever = new MainFileRetriever(mFolder, extension);
         }
 
         public ArrayList<String> getAudioList() {
@@ -33,10 +33,10 @@ public class MainMediaService {
 
         String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
 
-        FileRetriever fileRetriever;
+        MainFileRetriever fileRetriever;
 
         Video (String mFolder) {
-            fileRetriever = new FileRetriever(mFolder, extension);
+            fileRetriever = new MainFileRetriever(mFolder, extension);
         }
 
         public ArrayList<String> getVideoList() {
@@ -56,10 +56,10 @@ public class MainMediaService {
 
         String[] extension = new String[]{".jpg",".jpeg",".png"};
 
-        FileRetriever fileRetriever;
+        MainFileRetriever fileRetriever;
 
         public Image (String mFolder) {
-            fileRetriever = new FileRetriever(mFolder, extension);
+            fileRetriever = new MainFileRetriever(mFolder, extension);
 
         }
 

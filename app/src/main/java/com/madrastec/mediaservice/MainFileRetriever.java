@@ -11,7 +11,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FileRetriever {
+public class MainFileRetriever {
 
     ArrayList<String> fileList = new ArrayList<>();
     ArrayList<String> filePath = new ArrayList<>();;
@@ -19,7 +19,7 @@ public class FileRetriever {
 
     File[] files;
 
-    public FileRetriever(String mFolder, final String[] extension){
+    public MainFileRetriever(String mFolder, final String[] extension){
 
         ArrayList<String> extensionList = new ArrayList<String>(Arrays.asList(extension));
 
