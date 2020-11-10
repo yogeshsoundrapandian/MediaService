@@ -9,11 +9,10 @@ public class MediaService {
     //AUDIO
     public static class Audio {
 
-        String[] extension = new String[]{".mp3",".aac",".wav"};
-
         FileRetriever fileRetriever;
 
         Audio (String mFolder) {
+            String[] extension = new String[]{".mp3",".aac",".wav"};
             fileRetriever = new FileRetriever(mFolder, extension);
         }
 
@@ -33,11 +32,10 @@ public class MediaService {
     //VIDEO
     public static class Video {
 
-        String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
-
         FileRetriever fileRetriever;
 
         Video (String mFolder) {
+            String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
             fileRetriever = new FileRetriever(mFolder, extension);
         }
 
@@ -57,11 +55,10 @@ public class MediaService {
     //IMAGE
     public static class Image {
 
-        String[] extension = new String[]{".jpg",".jpeg",".png"};
-
         FileRetriever fileRetriever;
 
         public Image (String mFolder) {
+            String[] extension = new String[]{".jpg",".jpeg",".png"};
             fileRetriever = new FileRetriever(mFolder, extension);
         }
 
