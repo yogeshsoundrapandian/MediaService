@@ -14,14 +14,14 @@ import java.util.Arrays;
 public class FileRetriever {
 
     private ArrayList<String> fileList = new ArrayList<>();
-    private ArrayList<String> filePath = new ArrayList<>();;
+    private ArrayList<String> filePath = new ArrayList<>();
     private ArrayList<Bitmap> fileBitmap = new ArrayList<>();
 
     private File[] files;
 
     public FileRetriever(String folderPath, final String[] fileExtensions){
 
-        ArrayList<String> extensionList = new ArrayList<String>(Arrays.asList(fileExtensions));
+        ArrayList<String> extensionList = new ArrayList<>(Arrays.asList(fileExtensions));
 
         File folder = new File(Environment.getExternalStorageDirectory() + File.separator + folderPath);
 
