@@ -12,7 +12,7 @@ public class MainMediaService {
 
         MainFileRetriever fileRetriever;
 
-        Audio (String mFolder) {
+        public Audio (String mFolder) {
             fileRetriever = new MainFileRetriever(mFolder, extension);
         }
 
@@ -35,7 +35,7 @@ public class MainMediaService {
 
         MainFileRetriever fileRetriever;
 
-        Video (String mFolder) {
+        public Video (String mFolder) {
             fileRetriever = new MainFileRetriever(mFolder, extension);
         }
 
