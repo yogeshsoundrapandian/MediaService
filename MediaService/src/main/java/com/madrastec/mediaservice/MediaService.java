@@ -11,7 +11,7 @@ public class MediaService {
 
         FileRetriever fileRetriever;
 
-        Audio (String folderPath) {
+        public Audio (String folderPath) {
             String[] extension = new String[]{".mp3",".aac",".wav"};
             fileRetriever = new FileRetriever(folderPath, extension);
         }
@@ -34,7 +34,7 @@ public class MediaService {
 
         FileRetriever fileRetriever;
 
-        Video (String folderPath) {
+        public Video (String folderPath) {
             String[] extension = new String[]{".mp4",".3gp",".mpeg4"};
             fileRetriever = new FileRetriever(folderPath, extension);
         }
